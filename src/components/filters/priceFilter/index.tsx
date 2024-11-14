@@ -1,5 +1,6 @@
 import { FormControl, FormLabel, Slider } from '@mui/material'
 import { useShallow } from 'zustand/react/shallow'
+
 import useHotelsStore from '../../../store/hotelsStore'
 
 const PriceFilter = () => {

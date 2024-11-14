@@ -1,5 +1,6 @@
 import { Button, Pagination, Rating, Typography } from '@mui/material'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+
 import useHotelsStore from '../../store/hotelsStore'
 
 import styles from './hotels.module.scss'
@@ -28,45 +29,44 @@ const Hotels = () => {
 	const indexOfFirstHotel = indexOfLastHotel - itemsPerPage;
 	const currentHotels = filteredHotels.slice(indexOfFirstHotel, indexOfLastHotel);
 
-	const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+	const handlePageChange = (_event: ChangeEvent<unknown>, value: number) => {
 		setCurrentPage(value);
 	}
 
 	return (
 		<div className={styles.hotels}>
-			{filteredHotels.length > 0 ?
-				currentHotels.map((hotel) => (
-				<div className={styles.hotel} key={hotel.name}>
-					<div className={styles.info}>
-						<h2>{hotel.name}</h2>
-						<div className={styles.params}>
-							<Rating name="read-only" value={hotel.stars} readOnly />
-							<p className={styles.params_type}>{hotel.type}</p>
-							<p className={styles.params_reviews}>{pluralize(hotel.reviews_amount, ['отзыв', 'отзыва', 'отзывов'])}</p>
-							<p className={styles.params_country}>{hotel.country}</p>
+			{filteredHotels.length > 0
+				? currentHotels.map((hotel) => (
+					<div className={styles.hotel} key={hotel.name}>
+						<div className={styles.info}>
+							<h2>{hotel.name}</h2>
+							<div className={styles.params}>
+								<Rating name="read-only" value={hotel.stars} readOnly />
+								<p className={styles.params_type}>{hotel.type}</p>
+								<p className={styles.params_reviews}>{pluralize(hotel.reviews_amount, ['отзыв', 'отзыва', 'отзывов'])}</p>
+								<p className={styles.params_country}>{hotel.country}</p>
+							</div>
+							<p>{hotel.description}</p>
 						</div>
-						<p>{hotel.description}</p>
-					</div>
-					<div className={styles.price}>
-						<div className={styles.price_info}>
-							<span>
-								<p>{hotel.min_price}</p>
-								<p>{hotel.currency}</p>
-							</span>
-							<p>Цена за 1 ночь</p>
+						<div className={styles.price}>
+							<div className={styles.price_info}>
+								<span>
+									<p>{hotel.min_price}</p>
+									<p>{hotel.currency}</p>
+								</span>
+								<p>Цена за 1 ночь</p>
+							</div>
+							<Button
+								value={isReserved}
+								variant={isReserved.includes(hotel.name) ? 'outlined' : 'contained'}
+								onClick={() => handleClick(hotel.name)}
+							>
+								{isReserved.includes(hotel.name) ? 'Забронировано' : 'Забронировать'}
+							</Button>
 						</div>
-						<Button
-							value={isReserved}
-							variant={isReserved.includes(hotel.name) ? 'outlined' : 'contained'}
-							onClick={() => handleClick(hotel.name)}
-						>
-							{isReserved.includes(hotel.name) ? 'Забронировано' : 'Забронировать'}
-						</Button>
 					</div>
-				</div>
-			))
-			:
-				<Typography variant='h5'>Записей не найдено</Typography>
+				))
+				: <Typography variant='h5'>Записей не найдено</Typography>
 			}
 			{filteredHotels.length > itemsPerPage && (
 				<Pagination

@@ -1,28 +1,11 @@
 import { create } from 'zustand'
-import data from '../data/hotels.json'
-import { IHotel } from '../types'
 
-interface HotelsState {
-	hotels: IHotel[],
-	filteredHotels: IHotel[],
-	selectedCountry: string,
-	selectedTypes: string[],
-	selectedRatings: { [key: number]: boolean },
-	selectedReviewsAmount: number | null,
-	selectedPriceRange: number,
-	setSelectedCountry: (country: string) => void,
-	setSelectedTypes: (type: string[]) => void,
-	setSelectedRatings: (ratings: { [key: number]: boolean }) => void,
-	setSelectedReviewsAmount: (amount: number) => void,
-	setSelectedPriceRange: (range: number) => void,
-	setFilteredHotels: (hotels: IHotel[]) => void,
-	applyFilters: () => void,
-	resetFilters: () => void,
-}
+import data from '../data/hotels.json'
+import { IHotel, IHotelsState } from '../types'
 
 const hotelsData = [...data.hotels]
 
-const useHotelsStore = create<HotelsState>((set) => ({
+const useHotelsStore = create<IHotelsState>((set) => ({
 	hotels: hotelsData,
 	filteredHotels: hotelsData,
 	selectedCountry: '',
@@ -30,6 +13,7 @@ const useHotelsStore = create<HotelsState>((set) => ({
 	selectedRatings: { 1: false, 2: false, 3: false, 4: false, 5: false },
 	selectedReviewsAmount: null,
 	selectedPriceRange: 0,
+
 	setSelectedCountry: (country: string) => set({selectedCountry: country}),
 	setSelectedTypes: (type: string[]) => set({selectedTypes: [...type]}),
 	setSelectedRatings: (ratings: { [key: number]: boolean }) => set({ selectedRatings: ratings }),

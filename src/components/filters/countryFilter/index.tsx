@@ -1,6 +1,7 @@
 import { Autocomplete, FormControl, TextField } from '@mui/material'
 import { SyntheticEvent } from 'react'
 import { useShallow } from 'zustand/react/shallow'
+
 import countriesData from '../../../data/filtersData.json'
 import useHotelsStore from '../../../store/hotelsStore'
 

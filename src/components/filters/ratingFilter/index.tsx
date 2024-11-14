@@ -1,6 +1,7 @@
 import { Checkbox, FormControl, FormControlLabel, FormLabel, Rating } from '@mui/material'
 import { ChangeEvent } from 'react'
 import { useShallow } from 'zustand/react/shallow'
+
 import useHotelsStore from '../../../store/hotelsStore'
 
 const RatingFilter = () => {

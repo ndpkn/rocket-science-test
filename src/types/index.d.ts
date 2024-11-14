@@ -12,3 +12,21 @@ export interface IHotel {
 	reviews_amount: number,
 	last_review: string
 }
+
+export interface IHotelsState {
+	hotels: IHotel[],
+	filteredHotels: IHotel[],
+	selectedCountry: string,
+	selectedTypes: string[],
+	selectedRatings: { [key: number]: boolean },
+	selectedReviewsAmount: number | null,
+	selectedPriceRange: number,
+	setSelectedCountry: (country: string) => void,
+	setSelectedTypes: (type: string[]) => void,
+	setSelectedRatings: (ratings: { [key: number]: boolean }) => void,
+	setSelectedReviewsAmount: (amount: number) => void,
+	setSelectedPriceRange: (range: number) => void,
+	setFilteredHotels: (hotels: IHotel[]) => void,
+	applyFilters: () => void,
+	resetFilters: () => void,
+}
